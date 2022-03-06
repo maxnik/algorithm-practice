@@ -1,4 +1,4 @@
-class Item {
+export class Item {
 	constructor(name, weight, value) {
 		this.name = name
 		this.weight = weight
@@ -13,7 +13,7 @@ class Cell {
 	}
 }
 
-class KnapsackDynamicSolver {
+export class KnapsackDynamicSolver {
 	grid = []
 
 	constructor(items, capacity) {
@@ -66,22 +66,4 @@ class KnapsackDynamicSolver {
 
 		return this.grid
 	}
-}
-
-const guitar = new Item ('guitar', 1, 1500)
-const stereo = new Item ('stereo', 4, 3000)
-const laptop = new Item ('laptop', 3, 2000)
-const iphone = new Item ('iphone', 1, 2000)
-const mp3 = new Item ('mp3', 1, 1000)
-const items = [guitar, stereo, laptop, iphone, mp3]
-
-const solver = new KnapsackDynamicSolver(items, 4)
-const solution = solver.solve()
-
-for (const row of solution) {
-	for (const cell of row) {
-		const item_names = cell.items.map(i => i.name).join(', ')
-		process.stdout.write(`${item_names}=${cell.value}     `);
-	}
-	process.stdout.write('\n')
 }

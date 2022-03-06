@@ -1,0 +1,26 @@
+{
+  "name": "algorithm-practice",
+  "version": "1.0.0",
+  "description": "A set of exercises from books about computer algorithms",
+  "main": "index.js",
+  "scripts": {
+    "test": "NODE_OPTIONS=--experimental-vm-modules jest"
+  },
+  "type": "module",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/maxnik/algorithm-practice.git"
+  },
+  "author": "Max Nikolenko",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/maxnik/algorithm-practice/issues"
+  },
+  "homepage": "https://github.com/maxnik/algorithm-practice#readme",
+  "devDependencies": {
+    "jest": "^27.5.1"
+  },
+  "jest": {
+    "transform": {}
+  }
+}
