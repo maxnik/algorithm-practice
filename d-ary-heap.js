@@ -1,7 +1,34 @@
+export class Pair {
+    constructor(priority, element) {
+        this.priority = priority
+        this.element = element
+    }
+}
+
 export class DaryHeap {
     constructor(pairs, d) {
         this.pairs = pairs
         this.d = d
+    }
+
+    insert(priority, element) {
+        this.pairs.push(new Pair (priority, element))
+        this.bubble_up(this.pairs.length - 1)
+    }
+
+    top() {
+        if (this.pairs.length === 0) {
+            return null
+        }
+        const p = this.pairs.pop()
+        if (this.pairs.length === 0) {
+            return p.element
+        } else {
+            const top_element = this.pairs[0]
+            this.pairs[0] = p
+            this.push_down(0)
+            return top_element.element
+        }
     }
 
     bubble_up(index) {
@@ -45,9 +72,11 @@ export class DaryHeap {
         let max_index = this.d * index + 1
         for (let i = 2; i <= this.d; i++) {
             let current_index = this.d * index + i
-            if (this.pairs[current_index].priority > this.pairs[max_index].priority) {
-                max_index = current_index
-            }
+            if (current_index < this.pairs.length - 1) {
+                if (this.pairs[current_index].priority > this.pairs[max_index].priority) {
+                    max_index = current_index
+                }
+            }            
         }
         return max_index
     }
