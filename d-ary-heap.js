@@ -19,16 +19,17 @@ export class DaryHeap {
     }
 
     push_down(index) {
-        let current_index = index
-        while (current_index < this.first_leaf_index()) {
+        const current = this.pairs[index]
+        while (index < this.first_leaf_index()) {
             const child_index = this.highest_priority_child(index)
-            if (this.pairs[child_index].priority > this.pairs[current_index].priority) {
-                this.swap(current_index, child_index)
-                current_index = child_index
+            if (this.pairs[child_index].priority > current.priority) {
+                this.pairs[index] = this.pairs[child_index]
+                index = child_index
             } else {
                 break
             }
         }
+        this.pairs[index] = current
     }
 
     get_parent_index_of(index) {
@@ -49,11 +50,5 @@ export class DaryHeap {
             }
         }
         return max_index
-    }
-
-    swap(a, b) {
-        const temp = this.pairs[a]
-        this.pairs[a] = this.pairs[b]
-        this.pairs[b] = temp
     }
 }
