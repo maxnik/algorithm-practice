@@ -1,5 +1,9 @@
 import { Pair, DaryHeap } from './d-ary-heap.js'
 
+function max_compare_fn(x, y) {
+    return x > y
+}
+
 test('bubble_up() for an element with a higher priority than its parent', () => {
     const unencrypted_password = new Pair (10, 'Unencrypted password on DB')
     const optional_form = new Pair (8, 'Optional form field blocked')
@@ -14,7 +18,7 @@ test('bubble_up() for an element with a higher priority than its parent', () => 
         new Pair (3, 'Refactor CSS using SASS'),
         memory_leak
     ]
-    const heap = new DaryHeap (pairs, 3)
+    const heap = new DaryHeap (pairs, 3, max_compare_fn)
     heap.bubble_up(heap.pairs.length - 1)
     
     expect(heap.pairs[0]).toBe(unencrypted_password)
@@ -35,7 +39,7 @@ test('bubble_up() for the last element of a binary heap', () => {
         new Pair (3, ''),
         eight
     ]
-    const heap = new DaryHeap (pairs, 2)
+    const heap = new DaryHeap (pairs, 2, max_compare_fn)
     heap.bubble_up(heap.pairs.length - 1)
 
     expect(heap.pairs[0]).toBe(top)
@@ -55,7 +59,7 @@ test('push_down() for the root with lower priority', () => {
         new Pair (3, 'Refactor CSS using SASS'),
         new Pair (8, 'Optional form field blocked')
     ]
-    const heap = new DaryHeap (pairs, 3)
+    const heap = new DaryHeap (pairs, 3, max_compare_fn)
     heap.push_down(0)
 
     expect(heap.pairs[0]).toBe(unencrypted_password)
@@ -74,7 +78,7 @@ test('inserting a new pair into a heap', () => {
         new Pair (3, 'Refactor CSS using SASS'),
         new Pair (8, 'Optional form field blocked')
     ]
-    const heap = new DaryHeap (pairs, 3)
+    const heap = new DaryHeap (pairs, 3, max_compare_fn)
     heap.insert(9.5, 'Add exception for Superbowl')
 
     expect(heap.pairs[2].priority).toBe(9.5)
@@ -97,7 +101,7 @@ test('extract the heap\'s root and return it to the caller', () => {
         optional_form,
         memory_leak
     ]
-    const heap = new DaryHeap (pairs, 3)
+    const heap = new DaryHeap (pairs, 3, max_compare_fn)
     const extracted = heap.top()
 
     expect(extracted).toBe(unencrypted_password_text)

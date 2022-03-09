@@ -6,9 +6,10 @@ export class Pair {
 }
 
 export class DaryHeap {
-    constructor(pairs, d) {
+    constructor(pairs, d, compare) {
         this.pairs = pairs
         this.d = d
+        this.compare = compare
     }
 
     insert(priority, element) {
@@ -35,7 +36,7 @@ export class DaryHeap {
         const current = this.pairs[index]
         while (index > 0) {
             const parent_index = this.get_parent_index_of(index)
-            if (this.pairs[parent_index].priority < current.priority) {
+            if (this.compare(current.priority, this.pairs[parent_index].priority)) {
                 this.pairs[index] = this.pairs[parent_index]
                 index = parent_index
             } else {
@@ -49,7 +50,7 @@ export class DaryHeap {
         const current = this.pairs[index]
         while (index < this.first_leaf_index()) {
             const child_index = this.highest_priority_child(index)
-            if (this.pairs[child_index].priority > current.priority) {
+            if (this.compare(this.pairs[child_index].priority, current.priority)) {
                 this.pairs[index] = this.pairs[child_index]
                 index = child_index
             } else {
@@ -73,7 +74,8 @@ export class DaryHeap {
         for (let i = 2; i <= this.d; i++) {
             let current_index = this.d * index + i
             if (current_index < this.pairs.length - 1) {
-                if (this.pairs[current_index].priority > this.pairs[max_index].priority) {
+                if (this.compare(this.pairs[current_index].priority, 
+                                 this.pairs[max_index].priority)) {
                     max_index = current_index
                 }
             }            
