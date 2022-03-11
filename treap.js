@@ -88,4 +88,38 @@ export class Treap {
             return this.search(node.right, target_key)
         }
     }
+
+    insert(key, priority) {
+        let node = this.root
+        let parent = null
+        const new_node = new Node (key, priority)
+
+        while (node !== null) {
+            parent = node
+            if (key.localeCompare(node.key) <= 0) {
+                node = node.left
+            } else {
+                node = node.right
+            }
+        }
+        if (parent === null) {
+            this.root = new_node
+            return
+        } else if (key.localeCompare(parent.key) <= 0) {
+            parent.left = new_node
+        } else {
+            parent.right = new_node
+        }
+
+        while (new_node.parent !== null && new_node.priority < new_node.parent.priority) {
+            if (new_node === new_node.parent.left) {
+                this.right_rotate(new_node)
+            } else {
+                this.left_rotate(new_node)
+            }
+        }
+        if (new_node.parent === null) {
+            this.root = new_node
+        }
+    }
 }
