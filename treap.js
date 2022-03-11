@@ -75,4 +75,17 @@ export class Treap {
         y.right = x.left
         x.left = y
     }
+
+    search(node, target_key) {
+        if (node === null) {
+            return null
+        }
+        if (node.key === target_key) {
+            return node
+        } else if (target_key.localeCompare(node.key) < 0) {
+            return this.search(node.left, target_key)
+        } else {
+            return this.search(node.right, target_key)
+        }
+    }
 }

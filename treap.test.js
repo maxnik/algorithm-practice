@@ -52,3 +52,24 @@ test('right and left rotations are symmetrical', () => {
     expect(treap.root.left.left.left).toBe(bacon)
     expect(treap.root.left.left.right).toBe(butter)
 })
+
+test('searching by key', () => {
+    const flour = new Node ('Flour', 10)
+    const cabbage = new Node ('Cabbage', 77)
+    const beer = new Node ('Beer', 76)
+    const eggs = new Node ('Eggs', 129)
+    const bacon = new Node ('Bacon', 95)
+    const butter = new Node ('Butter', 86)
+
+    const treap = new Treap()
+    treap.root = flour
+    flour.left = cabbage
+    cabbage.left = beer
+    cabbage.right = eggs
+    beer.left = bacon
+    beer.right = butter
+
+    expect(treap.search(treap.root, butter.key)).toBe(butter)
+    expect(treap.search(treap.root, bacon.key)).toBe(bacon)
+    expect(treap.search(treap.root, 'Nonexistent')).toBe(null)
+})
