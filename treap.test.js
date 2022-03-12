@@ -151,3 +151,27 @@ test('deleting a key', () => {
     expect(treap.root.left.right.right.left).toBe(cabbage)
     expect(cabbage.is_leaf).toBe(true)
 })
+
+test('min and max keys', () => {
+    const flour = new Node ('Flour', 10)
+    const butter = new Node ('Butter', 76)
+    const water = new Node ('Water', 32)
+    const bacon = new Node ('Bacon', 77)
+    const eggs = new Node ('Eggs', 129)
+    const beer = new Node ('Beer', 95)
+    const milk = new Node ('Milk', 55)
+    const pork = new Node ('Pork', 56)
+
+    const treap = new Treap()
+    treap.root = flour
+    flour.right = water
+    water.left = milk
+    milk.right = pork
+    flour.left = butter
+    butter.left = bacon
+    bacon.right = beer
+    butter.right = eggs
+    
+    expect(treap.min()).toBe('Bacon')
+    expect(treap.max()).toBe('Water')
+})

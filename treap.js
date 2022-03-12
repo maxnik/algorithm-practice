@@ -159,4 +159,28 @@ export class Treap {
         node.parent = null
         return true
     }
+
+    min() {
+        if (this.root === null) {
+            throw new Error ('the treap is empty')
+        }
+
+        let node = this.root
+        while (node.left !== null) {
+            node = node.left
+        }
+        return node.key
+    }
+
+    max() {
+        if (this.root === null) {
+            throw new Error ('the treap is empty')
+        }
+
+        let node = this.root
+        while (node.right !== null) {
+            node = node.right
+        }
+        return node.key   
+    }
 }
