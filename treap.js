@@ -23,6 +23,14 @@ export class Node {
             node.parent = this
         }
     }
+
+    get is_leaf() {
+        return this._left === null && this._right === null
+    }
+
+    get is_root() {
+        return this.parent === null
+    }
 }
 
 export class Treap {
@@ -121,5 +129,34 @@ export class Treap {
         if (new_node.parent === null) {
             this.root = new_node
         }
+    }
+
+    remove(key) {
+        const node = this.search(this.root, key)
+        if (node === null) {
+            return false
+        }
+        if (node.is_root && node.is_leaf) {
+            this.root = null
+            return true
+        }
+        while (! node.is_leaf) {
+            if (node.left !== null && 
+                (node.right === null || node.left.priority < node.right.priority)) {
+                this.right_rotate(node.left)
+            } else {
+                this.left_rotate(node.right)
+            }
+            if (node.parent.is_root) {
+                this.root = node.parent
+            }
+        }
+        if (node.parent.left === node) {
+            node.parent.left = null
+        } else {
+            node.parent.right = null
+        }
+        node.parent = null
+        return true
     }
 }

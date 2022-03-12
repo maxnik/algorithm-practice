@@ -101,3 +101,53 @@ test('insert a new node', () => {
     expect(treap.root.left.left).toBe(bacon)
     expect(treap.root.left.right).toBe(butter)
 })
+
+test('leaves don\'t have children', () => {
+    const butter = new Node ('Butter', 111)
+    const bread = new Node ('Bread', 222)
+    butter.left = bread
+    
+    expect(butter.is_leaf).toBe(false)
+    expect(bread.is_leaf).toBe(true)
+})
+
+test('a root doesn\'t have a parent', () => {
+    const butter = new Node ('Butter', 111)
+    const bread = new Node ('Bread', 222)
+    butter.left = bread
+
+    expect(butter.is_root).toBe(true)
+    expect(bread.is_root).toBe(false)
+})
+
+test('deleting a key', () => {
+    const flour = new Node ('Flour', 10)
+    const beer = new Node ('Beer', 20)
+    const water = new Node ('Water', 32)
+    const milk = new Node ('Milk', 55)
+    const pork = new Node ('Pork', 56)
+    const butter = new Node ('Butter', 76)
+    const beet = new Node ('Beet', 81)
+    const eggs = new Node ('Eggs', 129)
+    const cabbage = new Node ('Cabbage', 159)
+
+    const treap = new Treap()
+    treap.root = flour
+    flour.right = water
+    water.left = milk
+    milk.right = pork
+    flour.left = beer
+    beer.right = butter
+    butter.left = beet
+    butter.right = eggs
+    eggs.left = cabbage
+
+    treap.remove('Butter')
+
+    expect(treap.root).toBe(flour)
+    expect(treap.root.left).toBe(beer)
+    expect(treap.root.left.right).toBe(beet)
+    expect(treap.root.left.right.right).toBe(eggs)
+    expect(treap.root.left.right.right.left).toBe(cabbage)
+    expect(cabbage.is_leaf).toBe(true)
+})
